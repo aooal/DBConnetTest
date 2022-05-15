@@ -1,0 +1,52 @@
+﻿@using DBConnetTest.Models;
+@{
+    List<Card> cards = ViewBag.cards;
+}
+<br />
+<div>
+    @using (Html.BeginForm())
+    {
+        <p>
+            關鍵字搜尋
+            <input type="text" name="KeyWorld" />
+            <input type="submit" value="查詢" />
+        </p>
+
+    }
+    <input type="button" class="btn btn-default" value="新增卡片" onclick="location.href='/Home/CreateCard'" />
+
+</div>
+
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>資料庫編號</th>
+            <th>角色名稱</th>
+            <th>卡片名稱</th>
+            <th>卡片等級</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (Card card in cards)
+            {
+                <tr>
+                    <th>@card.ID</th>
+                    <th>@card.Char_name</th>
+                    <th>@card.Card_name</th>
+                    <th>@card.Card_level</th>
+                    <th>@Html.ActionLink("編輯", "EditCard", new { id = card.ID, }, new { Class = "btn btn-success" })</th>
+                    <th>
+                        @Html.ActionLink("刪除", "DeleteCard", new { id = card.ID },
+                       new { onclick = "return confirm('是否確認刪除?')", Class = "btn btn-danger" })
+                    </th>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+
